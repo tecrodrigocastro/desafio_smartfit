@@ -74,7 +74,6 @@ class _ItemCardListState extends State<ItemCardList> {
                         .headlineMedium!
                         .copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.darkGrey,
                         ),
                   ),
                   const SizedBox(height: 5),
@@ -83,9 +82,7 @@ class _ItemCardListState extends State<ItemCardList> {
                     style: Constants.theme(context)
                         .textTheme
                         .titleMedium!
-                        .copyWith(
-                          color: AppColors.darkGrey,
-                        ),
+                        .copyWith(),
                   ),
                 ],
               ),
@@ -100,7 +97,6 @@ class _ItemCardListState extends State<ItemCardList> {
                         .headlineMedium!
                         .copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.darkGrey,
                         ),
                   ),
                   const SizedBox(height: 5),
@@ -109,9 +105,7 @@ class _ItemCardListState extends State<ItemCardList> {
                     style: Constants.theme(context)
                         .textTheme
                         .titleMedium!
-                        .copyWith(
-                          color: AppColors.darkGrey,
-                        ),
+                        .copyWith(),
                   ),
                 ],
               ),
@@ -122,15 +116,12 @@ class _ItemCardListState extends State<ItemCardList> {
             'Dom.',
             style: Constants.theme(context).textTheme.headlineMedium!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.darkGrey,
                 ),
           ),
           const SizedBox(height: 5),
           Text(
             'Fechada',
-            style: Constants.theme(context).textTheme.titleMedium!.copyWith(
-                  color: AppColors.darkGrey,
-                ),
+            style: Constants.theme(context).textTheme.titleMedium!.copyWith(),
           ),
         ],
       ),

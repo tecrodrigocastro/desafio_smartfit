@@ -30,6 +30,12 @@ class AppWidget extends StatelessWidget {
                 titleLarge: TextStyle(
                   color: AppColors.darkGrey,
                 ),
+                headlineMedium: TextStyle(
+                  color: AppColors.darkGrey,
+                ),
+                titleMedium: TextStyle(
+                  color: AppColors.darkGrey,
+                ),
               ),
               useMaterial3: true,
             ),
