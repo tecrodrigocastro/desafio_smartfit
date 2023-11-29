@@ -14,13 +14,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
     on<ThemeChanged>((event, emit) {
 
-      print(event.isDark.toString());
-
-
       emit(ThemeState(isDark: event.isDark));
-
-
-      print(state.isDark.toString());
 
     });
 
