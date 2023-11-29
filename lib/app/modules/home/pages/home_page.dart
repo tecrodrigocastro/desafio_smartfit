@@ -7,6 +7,7 @@ import 'package:desafio_smartfit/core/usecase/periodic_type.dart';
 import 'package:desafio_smartfit/core/utils/color_schema.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -277,19 +278,47 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 20),
                 SizedBox(
                   height: size.height,
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisExtent: 520,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                    ),
-                    itemBuilder: (context, index) {
-                      return const Card(
-                        child: ItemCardList(),
+                  child: BlocBuilder<GymBloc, GymState>(
+                    builder: (context, state) {
+                      if (state is GymLoading) {
+                        return Shimmer.fromColors(
+                            baseColor: AppColors.lightGrey,
+                            highlightColor: AppColors.darkGrey,
+                            child: GridView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisExtent: 520,
+                                crossAxisSpacing: 15,
+                                mainAxisSpacing: 15,
+                              ),
+                              itemBuilder: (context, index) {
+                                return const Card();
+                              },
+                            ));
+                      }
+                      if (state is GymFailure) {
+                        return Center(
+                          child: Text(state.message),
+                        );
+                      }
+                      return GridView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisExtent: 520,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15,
+                        ),
+                        itemBuilder: (context, index) {
+                          return const Card(
+                            child: ItemCardList(),
+                          );
+                        },
                       );
                     },
                   ),

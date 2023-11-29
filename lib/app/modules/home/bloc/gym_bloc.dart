@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:desafio_smartfit/app/modules/home/models/gym_model.dart';
 import 'package:desafio_smartfit/app/modules/home/repositories/gym_repositoy.dart';
@@ -15,6 +17,7 @@ class GymBloc extends Bloc<GymEvent, GymState> {
     on<GymStarted>((event, emit) async {
       emit(GymLoading());
       final result = await _gymRepository.getGyms();
+      Timer(const Duration(seconds: 5), () {});
       emit(GymSuccess(gyms: result));
     });
   }
