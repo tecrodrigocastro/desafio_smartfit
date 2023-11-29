@@ -1,15 +1,19 @@
+import 'package:desafio_smartfit/app/modules/home/models/gym_model.dart';
 import 'package:desafio_smartfit/core/utils/color_schema.dart';
 import 'package:desafio_smartfit/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ItemCardList extends StatefulWidget {
-  const ItemCardList({super.key});
+  const ItemCardList({super.key, required this.gym});
+
+  final GymModel gym;
 
   @override
   State<ItemCardList> createState() => _ItemCardListState();
 }
 
 class _ItemCardListState extends State<ItemCardList> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,22 +22,22 @@ class _ItemCardListState extends State<ItemCardList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Aberto',
+            widget.gym.opened! ? 'Aberto' : 'Fechado',
             style: Constants.theme(context).textTheme.titleMedium!.copyWith(
-                  color: AppColors.green,
+                  color: widget.gym.opened! ? AppColors.green : AppColors.red,
                   fontWeight: FontWeight.bold,
                 ),
           ),
           const SizedBox(height: 20),
           Text(
-            'Adryanne Kelly',
+            widget.gym.title!,
             style: Constants.theme(context).textTheme.headlineLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          const SizedBox(height: 20),
+          // const SizedBox(height: 20),
           Text(
-            'Rua Tibúrcio Cavalcanti, 1885 - Dionisio Torres, Fortaleza - CE, 60125-101',
+            widget.gym.content!,
             style: Constants.theme(context).textTheme.titleMedium!.copyWith(
                   color: AppColors.lightGrey,
                 ),

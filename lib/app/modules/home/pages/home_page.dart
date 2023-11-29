@@ -315,8 +315,17 @@ class _HomePageState extends State<HomePage> {
                           mainAxisSpacing: 15,
                         ),
                         itemBuilder: (context, index) {
-                          return const Card(
-                            child: ItemCardList(),
+                          state as GymSuccess;
+                          var gym = state.gyms[index];
+                          gym = gym.copyWith(
+                              content: gym.content!.replaceAll('</p>', ''));
+                          gym = gym.copyWith(
+                              content: gym.content!.replaceAll('<p>', ''));
+                          gym = gym.copyWith(
+                              content: gym.content!.replaceAll('<br>', '\n'));
+
+                          return Card(
+                            child: ItemCardList(gym: gym),
                           );
                         },
                       );
