@@ -1,3 +1,4 @@
+import 'package:desafio_smartfit/app/modules/home/bloc/gym_bloc.dart';
 import 'package:desafio_smartfit/app/modules/home/widgets/item_card_list_widget.dart';
 import 'package:desafio_smartfit/app/modules/home/widgets/item_row_card.dart';
 import 'package:desafio_smartfit/app/modules/home/widgets/rule_item.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     final themeBloc = context.read<ThemeBloc>();
+    final gymBloc = context.read<GymBloc>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,

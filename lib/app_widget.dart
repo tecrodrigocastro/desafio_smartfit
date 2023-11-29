@@ -1,4 +1,6 @@
+import 'package:desafio_smartfit/app/modules/home/bloc/gym_bloc.dart';
 import 'package:desafio_smartfit/app/modules/home/pages/home_page.dart';
+import 'package:desafio_smartfit/app/modules/home/repositories/gym_repositoy.dart';
 import 'package:desafio_smartfit/core/bloc/bloc/theme_bloc.dart';
 import 'package:desafio_smartfit/core/utils/color_schema.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,11 @@ class AppWidget extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => ThemeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GymBloc(
+            gymRepository: GymRepository(),
+          )..add(GymStarted()),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
