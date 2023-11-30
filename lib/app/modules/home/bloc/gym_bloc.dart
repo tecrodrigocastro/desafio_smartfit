@@ -13,12 +13,23 @@ class GymBloc extends Bloc<GymEvent, GymState> {
   GymBloc({
     required GymRepository gymRepository,
   })  : _gymRepository = gymRepository,
-        super(GymInitial()) {
+        super(const GymInitial([])) {
     on<GymStarted>((event, emit) async {
-      emit(GymLoading());
+      emit(const GymLoading([]));
       final result = await _gymRepository.getGyms();
       Timer(const Duration(seconds: 5), () {});
-      emit(GymSuccess(gyms: result));
+      emit(GymSuccess(result, gymss: result));
+    });
+
+    on<FilterGym>((event, emit) async {
+      emit(const GymLoading([]));
+      List<GymModel> filteredGyms = event.gyms
+          .where((e) =>
+              e.schedules != null &&
+              e.schedules!
+                  .any((e) => e.hour != null && e.hour!.contains(event.hour)))
+          .toList();
+      emit(GymSuccess(filteredGyms, gymss: filteredGyms));
     });
   }
 }

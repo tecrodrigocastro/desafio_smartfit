@@ -209,7 +209,10 @@ class _HomePageState extends State<HomePage> {
                                       //borderRadius: BorderRadius.circular(10),
                                       ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  gymBloc.add(FilterGym(gymBloc.state.gyms,
+                                      hour: '06h às 22h'));
+                                },
                                 child: Text(
                                   'ENCONTRAR UNIDADE',
                                   style: theme.textTheme.titleLarge!.copyWith(
