@@ -5,6 +5,7 @@ import 'package:desafio_smartfit/app/modules/home/widgets/rule_item.dart';
 import 'package:desafio_smartfit/core/bloc/bloc/theme_bloc.dart';
 import 'package:desafio_smartfit/core/usecase/periodic_type.dart';
 import 'package:desafio_smartfit/core/utils/color_schema.dart';
+import 'package:desafio_smartfit/core/utils/responsive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,6 +26,12 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     final themeBloc = context.read<ThemeBloc>();
     final gymBloc = context.read<GymBloc>();
+    int columnsCount = 3;
+    if (ResponsiveUtils.isMobile(context)) {
+      columnsCount = 1;
+    } else if (ResponsiveUtils.isTablet(context)) {
+      columnsCount = 2;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -304,31 +311,38 @@ class _HomePageState extends State<HomePage> {
                           child: Text(state.message),
                         );
                       }
-                      return GridView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisExtent: 520,
-                          crossAxisSpacing: 15,
-                          mainAxisSpacing: 15,
-                        ),
-                        itemBuilder: (context, index) {
-                          state as GymSuccess;
-                          var gym = state.gyms[index];
-                          gym = gym.copyWith(
-                              content: gym.content!.replaceAll('</p>', ''));
-                          gym = gym.copyWith(
-                              content: gym.content!.replaceAll('<p>', ''));
-                          gym = gym.copyWith(
-                              content: gym.content!.replaceAll('<br>', '\n'));
 
-                          return Card(
-                            child: ItemCardList(gym: gym),
-                          );
-                        },
-                      );
+                      if (state is GymSuccess) {
+                        return GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: state.gyms.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: columnsCount,
+                            mainAxisExtent: 560,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 15,
+                          ),
+                          itemBuilder: (context, index) {
+                            var gym = state.gyms[index];
+                            gym = gym.copyWith(
+                                content: gym.content!.replaceAll('</p>', ''));
+                            gym = gym.copyWith(
+                                content: gym.content!.replaceAll('<p>', ''));
+                            gym = gym.copyWith(
+                                content: gym.content!.replaceAll('<br>', ', '));
+                            gym = gym.copyWith(
+                                content: gym.content!.replaceAll('&#8211', ''));
+
+                            return Card(
+                              child: ItemCardList(gym: gym),
+                            );
+                          },
+                        );
+                      }
+                      return const SizedBox();
                     },
                   ),
                 ),

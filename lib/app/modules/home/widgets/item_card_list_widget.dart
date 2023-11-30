@@ -43,7 +43,7 @@ class _ItemCardListState extends State<ItemCardList> {
                 ),
           ),
           const Divider(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Row(
             children: [
               Image.asset(
